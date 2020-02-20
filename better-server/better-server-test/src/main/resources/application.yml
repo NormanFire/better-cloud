@@ -24,3 +24,11 @@ security:
     resource:
       id: ${spring.application.name}
       user-info-uri: http://localhost:8301/auth/user
+
+#让回退生效
+feign:
+  hystrix:
+    enabled: true
+# 让SecurityContext传递到hystrix,使给feign添加验证信息的时候能够获取
+hystrix:
+  shareSecurityContext: true
