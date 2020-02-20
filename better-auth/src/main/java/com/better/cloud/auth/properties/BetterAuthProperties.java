@@ -18,4 +18,10 @@ public class BetterAuthProperties {
     private BetterClientsProperties[] clients = {};
     private int accessTokenValiditySeconds = 60 * 60 * 24;
     private int refreshTokenValiditySeconds = 60 * 60 * 24 * 7;
+
+    // 免认证路径
+    private String anonUrl;
+
+    //验证码配置类
+    private BetterValidateCodeProperties code = new BetterValidateCodeProperties();
 }

@@ -1,5 +1,6 @@
 package com.better.cloud.auth.configure;
 
+import com.better.cloud.auth.filter.ValidateCodeFilter;
 import com.better.cloud.auth.service.BetterUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @description 认证服务器处理请求配置 本配置类只对/oauth/**生效 在filterChain中默认Order为100
@@ -24,6 +26,9 @@ public class BetterSecurityConfigure extends WebSecurityConfigurerAdapter {
     @Autowired
     private BetterUserDetailService userDetailService;
 
+    @Autowired
+    private ValidateCodeFilter validateCodeFilter;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -36,7 +41,9 @@ public class BetterSecurityConfigure extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatchers()
+        //将ValidateCodeFilter过滤器添加到了UsernamePasswordAuthenticationFilter过滤器前。
+        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .requestMatchers()
                 .antMatchers("/oauth/**")
                 .and()
                 .authorizeRequests()
