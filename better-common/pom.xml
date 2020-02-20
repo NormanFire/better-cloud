@@ -15,6 +15,12 @@
     <description>Better Common 通用模块 集成通用依赖与公共代码</description>
 
     <dependencies>
+        <!-- config file process  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!-- spring eureka client -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
