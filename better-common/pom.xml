@@ -15,6 +15,12 @@
     <description>Better Common 通用模块 集成通用依赖与公共代码</description>
 
     <dependencies>
+        <!-- mybatis plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.1.2</version>
+        </dependency>
         <!-- config file process  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

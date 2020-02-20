@@ -13,6 +13,14 @@
     <name>Better Server UPMS</name>
     <description>Better Server UPMS 通用用权限管理系统</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

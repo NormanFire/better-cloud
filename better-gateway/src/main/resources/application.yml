@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: Better-Gateway
+  #没有引入数据源 排除jdbc
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
 eureka:
   instance:
