@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 
 /**
  * @author lius
- * @description 开启拦截feign 为feign添加验证信息
+ * @description 开启拦截feign 为feign添加zuul和auth验证信息
  * @date 2020/2/20
  */
 @Target({ElementType.TYPE})

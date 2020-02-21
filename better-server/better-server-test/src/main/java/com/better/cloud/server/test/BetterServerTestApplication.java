@@ -1,5 +1,6 @@
 package com.better.cloud.server.test;
 
+import com.better.cloud.common.annotation.BetterCloudApplication;
 import com.better.cloud.common.annotation.enable.EnableBetterAuthExceptionHandler;
 import com.better.cloud.common.annotation.enable.EnableBetterOauth2FeignClient;
 import com.better.cloud.common.annotation.enable.EnableBetterServerProtect;
@@ -14,9 +15,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
  * @description
  * @date 2020/2/20
  */
-@EnableBetterAuthExceptionHandler
-@EnableBetterServerProtect
-@EnableBetterOauth2FeignClient
+@BetterCloudApplication
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication

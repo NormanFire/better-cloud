@@ -1,5 +1,6 @@
 package com.better.cloud.server.upms;
 
+import com.better.cloud.common.annotation.BetterCloudApplication;
 import com.better.cloud.common.annotation.enable.EnableBetterAuthExceptionHandler;
 import com.better.cloud.common.annotation.enable.EnableBetterOauth2FeignClient;
 import com.better.cloud.common.annotation.enable.EnableBetterServerProtect;
@@ -16,13 +17,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @description 通用用户权限管理系统微服务
  * @date 2020/2/20
  */
-@EnableBetterAuthExceptionHandler
-@EnableBetterServerProtect
+@BetterCloudApplication
 @EnableFeignClients
 @EnableTransactionManagement
 @EnableDiscoveryClient
 @SpringBootApplication
-@EnableBetterOauth2FeignClient
 @EnableGlobalMethodSecurity(prePostEnabled = true) //开启Spring Cloud Security权限注解
 @MapperScan("com.better.cloud.server.upms.mapper")
 public class BetterServerUPMSApplication {
