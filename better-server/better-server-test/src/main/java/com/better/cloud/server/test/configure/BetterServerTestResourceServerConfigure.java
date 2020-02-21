@@ -28,6 +28,7 @@ public class BetterServerTestResourceServerConfigure extends ResourceServerConfi
                 .requestMatchers().antMatchers("/**")
                 .and()
                 .authorizeRequests()
+                .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/**").authenticated();
     }
     @Override

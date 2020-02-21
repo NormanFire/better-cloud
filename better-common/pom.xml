@@ -15,6 +15,12 @@
     <description>Better Common 通用模块 集成通用依赖与公共代码</description>
 
     <dependencies>
+        <!-- admin client -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>2.2.2</version>
+        </dependency>
         <!-- fast josn -->
         <dependency>
             <groupId>com.alibaba</groupId>

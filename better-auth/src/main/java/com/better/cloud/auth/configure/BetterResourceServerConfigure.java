@@ -35,6 +35,7 @@ public class BetterResourceServerConfigure extends ResourceServerConfigurerAdapt
                 .and()
                 .authorizeRequests()
                 .antMatchers(anonUrls).permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/**").authenticated()
                 .and().httpBasic();
     }

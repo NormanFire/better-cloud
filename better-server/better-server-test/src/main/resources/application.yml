@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: Better-Server-Test
+  boot:
+    admin:
+      client:
+        url: http://localhost:8401
+        username: better
+        password: 123456
 
   #没有引入数据源 排除jdbc
   autoconfigure:
@@ -32,3 +38,19 @@ feign:
 # 让SecurityContext传递到hystrix,使给feign添加验证信息的时候能够获取
 hystrix:
   shareSecurityContext: true
+
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: "@project.description@"
+    version: "@project.version@"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

@@ -31,7 +31,12 @@ spring:
           password: Liu@1213380440
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://106.12.25.137:3306/better_cloud_upms?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
-
+  boot:
+    admin:
+      client:
+        url: http://localhost:8401
+        username: better
+        password: 123456
 
 eureka:
   instance:
@@ -54,3 +59,19 @@ mybatis-plus:
     db-config:
       insert-strategy: not_empty
       update-strategy: not_empty
+
+#spring boot admin
+info:
+  app:
+    name: ${spring.application.name}
+    description: "@project.description@"
+    version: "@project.version@"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

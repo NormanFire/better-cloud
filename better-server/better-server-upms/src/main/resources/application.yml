@@ -25,6 +25,12 @@ spring:
           url: jdbc:mysql://106.12.25.137:3306/better_cloud_upms?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
       #开启sql日志打印 有性能损耗，生产环境请关闭
       p6spy: true
+  boot:
+    admin:
+      client:
+        url: http://localhost:8401
+        username: better
+        password: 123456
 
 mybatis-plus:
   type-aliases-package: com.better.cloud.common.entity.upms
@@ -52,3 +58,18 @@ security:
     resource:
       id: ${spring.application.name}
       user-info-uri: http://localhost:8301/auth/user
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: "@project.description@"
+    version: "@project.version@"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

@@ -13,6 +13,7 @@
         <module>better-auth</module>
         <module>better-gateway</module>
         <module>better-server</module>
+        <module>better-monitor</module>
     </modules>
     <packaging>pom</packaging>
     <name>Better Cloud</name>

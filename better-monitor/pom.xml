@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>better-cloud</artifactId>
+        <groupId>com.better.cloud</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>better-monitor</artifactId>
+    <packaging>pom</packaging>
+    <name>Better Monitor</name>
+    <description>Better Monitor 监控项目聚合</description>
+    <modules>
+        <module>better-monitor-admin</module>
+    </modules>
+
+</project>
