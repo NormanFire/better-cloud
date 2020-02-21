@@ -4,10 +4,38 @@ server:
 spring:
   application:
     name: Better-Server-UPMS
+  #关闭多数据源自动装配
+#  autoconfigure:
+#    exclude: com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration
+  datasource:
+    dynamic:
+      hikari:
+        connection-timeout: 30000
+        max-lifetime: 1800000
+        max-pool-size: 15
+        min-idle: 5
+        connection-test-query: select 1
+        pool-name: BetterHikariCP
+      primary: base
+      datasource:
+        base:
+          username: root
+          password: Liu@1213380440
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://106.12.25.137:3306/better_cloud_upms?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+      #开启sql日志打印 有性能损耗，生产环境请关闭
+      p6spy: true
 
-  #没有引入数据源 排除jdbc
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+mybatis-plus:
+  type-aliases-package: com.better.cloud.common.entity.upms
+  mapper-locations: classpath:mapper/*/*.xml
+  configuration:
+    jdbc-type-for-null: null
+  global-config:
+    banner: false
+    db-config:
+      insert-strategy: not_empty
+      update-strategy: not_empty
 
 eureka:
   instance:

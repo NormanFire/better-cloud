@@ -18,7 +18,7 @@ public class TestController {
         return "better-server-upms";
     }
 
-    @GetMapping("user")
+    @GetMapping("currentUser")
     public Principal currentUser(Principal principal) {
         return principal;
     }

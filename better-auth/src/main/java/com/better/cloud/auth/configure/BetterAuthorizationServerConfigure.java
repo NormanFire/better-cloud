@@ -3,6 +3,7 @@ package com.better.cloud.auth.configure;
 import com.better.cloud.auth.properties.BetterAuthProperties;
 import com.better.cloud.auth.properties.BetterClientsProperties;
 import com.better.cloud.auth.service.BetterUserDetailService;
+import com.better.cloud.auth.translator.BetterWebResponseExceptionTranslator;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,19 @@ public class BetterAuthorizationServerConfigure extends AuthorizationServerConfi
     @Autowired
     private BetterAuthProperties authProperties;
 
+    @Autowired
+    private BetterWebResponseExceptionTranslator exceptionTranslator;
+
+    @Override
+    @SuppressWarnings("all")
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+        endpoints.tokenStore(tokenStore())
+                .userDetailsService(userDetailService)
+                .authenticationManager(authenticationManager)
+                .tokenServices(defaultTokenServices())
+                .exceptionTranslator(exceptionTranslator);
+    }
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         BetterClientsProperties[] clientsArray = authProperties.getClients();
@@ -60,14 +74,6 @@ public class BetterAuthorizationServerConfigure extends AuthorizationServerConfi
                         .scopes(client.getScope());
             }
         }
-    }
-
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.tokenStore(tokenStore())
-                .userDetailsService(userDetailService)
-                .authenticationManager(authenticationManager)
-                .tokenServices(defaultTokenServices());
     }
 
     @Bean

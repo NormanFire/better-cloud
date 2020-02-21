@@ -1,4 +1,4 @@
-package com.better.cloud.common.annotation;
+package com.better.cloud.common.annotation.enable;
 
 import com.better.cloud.common.configure.BetterOAuth2FeignConfigure;
 import org.springframework.context.annotation.Import;
