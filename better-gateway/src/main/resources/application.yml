@@ -1,18 +1,31 @@
 server:
   port: 8301
-
 spring:
   application:
     name: Better-Gateway
-  #没有引入数据源 排除jdbc
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   boot:
     admin:
       client:
-        url: http://localhost:8401
+        url: http://${better-monitor-admin}:8401
         username: better
         password: 123456
+  cloud:
+    gateway:
+      routes:
+        - id: Better-Auth
+          uri: lb://Better-Auth
+          predicates:
+            - Path=/auth/**
+        - id: Better-Server-UPMS
+          uri: lb://Better-Server-UPMS
+          predicates:
+            - Path=/upms/**
+        - id: Better-Server-test
+          uri: lb://Better-Server-Test
+          predicates:
+            - Path=/test/**
+      default-filters:
+        - StripPrefix=1
 
 eureka:
   instance:
@@ -23,42 +36,13 @@ eureka:
     instance-info-replication-interval-seconds: 30
     registry-fetch-interval-seconds: 3
     serviceUrl:
-      defaultZone: http://better:123456@localhost:8001/register/eureka/
-
-zuul:
-  routes:
-    auth:
-      path: /auth/**
-      serviceId: Better-Auth
-      sensitiveHeaders: "*"
-    upms:
-      path: /upms/**
-      serviceId: Better-Server-Upms
-      sensitiveHeaders: "*"
-    test:
-      path: /test/**
-      serviceId: Better-Server-Test
-      sensitiveHeaders: "*"
-  retryable: true
-  ignored-services: "*"
-  ribbon:
-    eager-load:
-      enabled: true
-
-ribbon:
-  ReadTimeout: 3000
-
-info:
-  app:
-    name: ${spring.application.name}
-    description: "@project.description@"
-    version: "@project.version@"
+      defaultZone: http://better:123456@${better-register}:8001/register/eureka/
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
   endpoint:
     health:
       show-details: ALWAYS
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway

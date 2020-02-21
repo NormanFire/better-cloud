@@ -1,6 +1,5 @@
 package com.better.cloud.common.interceptor;
 
-import com.alibaba.fastjson.JSONObject;
 import com.better.cloud.common.constant.BetterConstant;
 import com.better.cloud.common.entity.BetterResponse;
 import com.google.gson.Gson;
@@ -23,8 +22,8 @@ public class BetterServerProtectInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         // 从请求头中获取 Zuul Token
-        String token = request.getHeader(BetterConstant.ZUUL_TOKEN_HEADER);
-        String zuulToken = new String(Base64Utils.encode(BetterConstant.ZUUL_TOKEN_VALUE.getBytes()));
+        String token = request.getHeader(BetterConstant.GATEWAY_TOKEN_HEADER);
+        String zuulToken = new String(Base64Utils.encode(BetterConstant.GATEWAY_TOKEN_VALUE.getBytes()));
         // 校验 Zuul Token的正确性
         if (StringUtils.equals(zuulToken, token)) {
             return true;

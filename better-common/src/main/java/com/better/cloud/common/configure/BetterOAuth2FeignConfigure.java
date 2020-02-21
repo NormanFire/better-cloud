@@ -19,8 +19,8 @@ public class BetterOAuth2FeignConfigure {
         return requestTemplate -> {
 
             // 添加 Zuul Token
-            String zuulToken = new String(Base64Utils.encode(BetterConstant.ZUUL_TOKEN_VALUE.getBytes()));
-            requestTemplate.header(BetterConstant.ZUUL_TOKEN_HEADER, zuulToken);
+            String zuulToken = new String(Base64Utils.encode(BetterConstant.GATEWAY_TOKEN_VALUE.getBytes()));
+            requestTemplate.header(BetterConstant.GATEWAY_TOKEN_HEADER, zuulToken);
 
             Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
             if (details instanceof OAuth2AuthenticationDetails) {
