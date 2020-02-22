@@ -18,8 +18,12 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
@@ -51,8 +55,8 @@ public class BetterAuthorizationServerConfigure extends AuthorizationServerConfi
         endpoints.tokenStore(tokenStore())
                 .userDetailsService(userDetailService)
                 .authenticationManager(authenticationManager)
-                .tokenServices(defaultTokenServices())
-                .exceptionTranslator(exceptionTranslator);
+                .exceptionTranslator(exceptionTranslator)
+                .accessTokenConverter(jwtAccessTokenConverter());
     }
 
     @Override
@@ -71,14 +75,16 @@ public class BetterAuthorizationServerConfigure extends AuthorizationServerConfi
                 builder.withClient(client.getClient())
                         .secret(passwordEncoder.encode(client.getSecret()))
                         .authorizedGrantTypes(grantTypes)
-                        .scopes(client.getScope());
+                        .scopes(client.getScope())
+                        .accessTokenValiditySeconds(authProperties.getAccessTokenValiditySeconds())
+                        .refreshTokenValiditySeconds(authProperties.getRefreshTokenValiditySeconds());
             }
         }
     }
 
     @Bean
     public TokenStore tokenStore() {
-        return new RedisTokenStore(redisConnectionFactory);
+        return new JwtTokenStore(jwtAccessTokenConverter());
     }
 
     @Primary
@@ -90,5 +96,16 @@ public class BetterAuthorizationServerConfigure extends AuthorizationServerConfi
         tokenServices.setAccessTokenValiditySeconds(authProperties.getAccessTokenValiditySeconds());
         tokenServices.setRefreshTokenValiditySeconds(authProperties.getRefreshTokenValiditySeconds());
         return tokenServices;
+    }
+
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
+        DefaultAccessTokenConverter defaultAccessTokenConverter = (DefaultAccessTokenConverter) accessTokenConverter.getAccessTokenConverter();
+        DefaultUserAuthenticationConverter userAuthenticationConverter = new DefaultUserAuthenticationConverter();
+        userAuthenticationConverter.setUserDetailsService(userDetailService);
+        defaultAccessTokenConverter.setUserTokenConverter(userAuthenticationConverter);
+        accessTokenConverter.setSigningKey("better");
+        return accessTokenConverter;
     }
 }
