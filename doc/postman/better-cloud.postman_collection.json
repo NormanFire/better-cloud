@@ -1,0 +1,415 @@
+{
+	"info": {
+		"_postman_id": "6a56f1fb-a3a2-4d13-8a81-73aea0e65eec",
+		"name": "better-cloud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "获取token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YmV0dGVyOjEyMzQ1Ng==",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8101/oauth/token?grant_type=password&username=lius&password=123456",
+					"host": [
+						"localhost"
+					],
+					"port": "8101",
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						},
+						{
+							"key": "username",
+							"value": "lius"
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						}
+					]
+				},
+				"description": "认证服务器demo测试请求"
+			},
+			"response": []
+		},
+		{
+			"name": "使用token获取当前用户信息",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{better-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8101/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8101",
+					"path": [
+						"user"
+					]
+				},
+				"description": "认证服务器demo"
+			},
+			"response": []
+		},
+		{
+			"name": "/oauth/**使用token访问",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{better-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8101/oauth/test",
+					"host": [
+						"localhost"
+					],
+					"port": "8101",
+					"path": [
+						"oauth",
+						"test"
+					]
+				},
+				"description": "/oauth/**请求资源服务器不处理，所以即使携带了token也是403"
+			},
+			"response": []
+		},
+		{
+			"name": "退出登录",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{better-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8101/signout",
+					"host": [
+						"localhost"
+					],
+					"port": "8101",
+					"path": [
+						"signout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刷新token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YmV0dGVyOjEyMzQ1Ng==",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8101/oauth/token?grant_type=refresh_token&refresh_token=7e95e9ab-3c3b-4bee-9b75-3b8a6e336493",
+					"host": [
+						"localhost"
+					],
+					"port": "8101",
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token"
+						},
+						{
+							"key": "refresh_token",
+							"value": "7e95e9ab-3c3b-4bee-9b75-3b8a6e336493"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "通过网关获取token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YmV0dGVyOjEyMzQ1Ng==",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8301/auth/oauth/token?grant_type=password&username=better&password=1234qwer&key=7889&code=5548",
+					"host": [
+						"localhost"
+					],
+					"port": "8301",
+					"path": [
+						"auth",
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						},
+						{
+							"key": "username",
+							"value": "better"
+						},
+						{
+							"key": "password",
+							"value": "1234qwer"
+						},
+						{
+							"key": "key",
+							"value": "7889"
+						},
+						{
+							"key": "code",
+							"value": "5548"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "通过网关获取当前用户",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{better-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8301/auth/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8301",
+					"path": [
+						"auth",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "测试upms服务器/upms/info",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{better-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8301/upms/info",
+					"host": [
+						"localhost"
+					],
+					"port": "8301",
+					"path": [
+						"upms",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "通过upms微服务获取login user 信息",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{better-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8301/upms/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8301",
+					"path": [
+						"upms",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test服务测试user:add权限",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{better-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8301/test/test1",
+					"host": [
+						"localhost"
+					],
+					"port": "8301",
+					"path": [
+						"test",
+						"test1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "测试没有user:update权限",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{better-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8301/test/test2",
+					"host": [
+						"localhost"
+					],
+					"port": "8301",
+					"path": [
+						"test",
+						"test2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test微服务获取当前用户",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{better-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8301/test/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8301",
+					"path": [
+						"test",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "feign调用demo",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{better-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8301/test/hello?name=better",
+					"host": [
+						"localhost"
+					],
+					"port": "8301",
+					"path": [
+						"test",
+						"hello"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "better"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取验证码",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8301/auth/captcha?key=7889",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8301",
+					"path": [
+						"auth",
+						"captcha"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "7889"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
