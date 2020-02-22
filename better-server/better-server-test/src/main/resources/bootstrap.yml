@@ -1,6 +1,6 @@
 spring:
   application:
-    name: Better-Test
+    name: Better-Server-Test
   cloud:
     nacos:
       discovery:

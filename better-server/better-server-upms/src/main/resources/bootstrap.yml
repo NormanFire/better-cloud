@@ -1,6 +1,6 @@
 spring:
   application:
-    name: Better-UPMS
+    name: Better-Server-UPMS
   cloud:
     nacos:
       discovery:
