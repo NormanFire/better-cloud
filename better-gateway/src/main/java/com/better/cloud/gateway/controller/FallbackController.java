@@ -1,0 +1,27 @@
+package com.better.cloud.gateway.controller;
+
+import com.better.cloud.common.entity.BetterResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
+
+/**
+ * @author lius
+ * @description 超时熔断
+ * @date 2020/2/22
+ */
+@RestController
+public class FallbackController {
+
+    @RequestMapping("fallback/{name}")
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Mono<BetterResponse> systemFallback(@PathVariable String name) {
+        String response = String.format("访问%s超时或者服务不可用", name);
+        return Mono.just(new BetterResponse().message(response));
+    }
+
+}
+
