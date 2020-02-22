@@ -5,14 +5,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.better.cloud.common.entity.upms.SystemUser;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
- * @author lius
- * @description
- * @date 2020/2/21
+ * @author MrBird
  */
-@Repository
 public interface UserMapper extends BaseMapper<SystemUser> {
 
     /**
@@ -23,5 +21,13 @@ public interface UserMapper extends BaseMapper<SystemUser> {
      * @return Ipage
      */
     IPage<SystemUser> findUserDetailPage(Page page, @Param("user") SystemUser user);
-}
 
+    /**
+     * 查找用户详细信息
+     *
+     * @param user 用户对象，用于传递查询条件
+     * @return List<User>
+     */
+    List<SystemUser> findUserDetail(@Param("user") SystemUser user);
+
+}

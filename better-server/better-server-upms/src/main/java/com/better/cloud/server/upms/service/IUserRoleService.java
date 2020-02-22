@@ -1,17 +1,16 @@
 package com.better.cloud.server.upms.service;
 
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.better.cloud.common.entity.upms.UserRole;
 
-/**
- * @author lius
- * @description
- * @date 2020/2/21
- */
+import java.util.List;
+
 public interface IUserRoleService extends IService<UserRole> {
 
-    void deleteUserRolesByRoleId(String[] roleIds);
+	void deleteUserRolesByRoleId(String[] roleIds);
 
-    void deleteUserRolesByUserId(String[] userIds);
+	void deleteUserRolesByUserId(String[] userIds);
+
+	List<String> findUserIdsByRoleId(String[] roleIds);
 }
-

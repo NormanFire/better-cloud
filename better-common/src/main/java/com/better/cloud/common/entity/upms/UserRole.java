@@ -7,9 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author lius
- * @description
- * @date 2020/2/21
+ * @author MrBird
  */
 @Data
 @TableName("t_user_role")
@@ -24,4 +22,3 @@ public class UserRole implements Serializable {
     private Long roleId;
 
 }
-

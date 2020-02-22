@@ -17,6 +17,11 @@ import org.springframework.context.annotation.PropertySource;
 public class BetterServerUPMSProperties {
 
     /**
+     * 批量插入当批次可插入的最大值
+     */
+    private Integer batchInsertMaxNum = 1000;
+
+    /**
      * 免认证 URI，多个值的话以逗号分隔
      */
     private String anonUrl;
