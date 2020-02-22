@@ -9,7 +9,6 @@
     <version>1.0</version>
     <modules>
         <module>better-common</module>
-        <module>better-register</module>
         <module>better-auth</module>
         <module>better-gateway</module>
         <module>better-server</module>
@@ -28,6 +27,7 @@
 
     <properties>
         <spring-cloud.version> Hoxton.SR1</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
         <project.version>1.0</project.version>
     </properties>
 
@@ -37,6 +37,13 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

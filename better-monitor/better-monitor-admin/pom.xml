@@ -14,6 +14,11 @@
     <description>Better Monitor Admin 基于Spring Boot Admin搭建的监控程序</description>
 
     <dependencies>
+        <!--不需要发现服务，只添加注册中心依赖-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

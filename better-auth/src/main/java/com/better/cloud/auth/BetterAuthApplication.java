@@ -11,7 +11,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @BetterCloudApplication
 @EnableBetterLettuceRedis
-@EnableDiscoveryClient
 @SpringBootApplication
 @MapperScan("com.better.cloud.auth.mapper")
 public class BetterAuthApplication {
