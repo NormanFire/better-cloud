@@ -8,6 +8,11 @@ package com.better.cloud.common.constant;
 public class BetterConstant {
 
     /**
+     * 注册用户角色ID
+     */
+    public static final Long REGISTER_ROLE_ID = 2L;
+
+    /**
      * Java默认临时目录
      */
     public static final String JAVA_TEMP_DIR = "java.io.tmpdir";

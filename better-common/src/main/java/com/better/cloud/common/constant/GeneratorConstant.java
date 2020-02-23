@@ -14,12 +14,12 @@ public class GeneratorConstant {
     /**
      * 数据库名称
      */
-    public static final String DATABASE_NAME = "febs_cloud_base";
+    public static final String DATABASE_NAME = "better_cloud_upms";
 
     /**
      * 生成代码的临时目录
      */
-    public static final String TEMP_PATH = "febs_gen_temp/";
+    public static final String TEMP_PATH = "better_gen_temp/";
 
     /**
      * java类型文件后缀

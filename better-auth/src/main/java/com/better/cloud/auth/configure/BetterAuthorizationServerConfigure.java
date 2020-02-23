@@ -3,6 +3,7 @@ package com.better.cloud.auth.configure;
 import com.better.cloud.auth.properties.BetterAuthProperties;
 import com.better.cloud.auth.properties.BetterClientsProperties;
 import com.better.cloud.auth.service.BetterUserDetailService;
+import com.better.cloud.auth.service.impl.RedisClientDetailsService;
 import com.better.cloud.auth.translator.BetterWebResponseExceptionTranslator;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +19,9 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
+import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
+import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
@@ -45,6 +49,8 @@ public class BetterAuthorizationServerConfigure extends AuthorizationServerConfi
     private PasswordEncoder passwordEncoder;
     @Autowired
     private BetterAuthProperties authProperties;
+    @Autowired
+    private RedisClientDetailsService redisClientDetailsService;
 
     @Autowired
     private BetterWebResponseExceptionTranslator exceptionTranslator;
@@ -91,10 +97,10 @@ public class BetterAuthorizationServerConfigure extends AuthorizationServerConfi
     @Bean
     public DefaultTokenServices defaultTokenServices() {
         DefaultTokenServices tokenServices = new DefaultTokenServices();
+
         tokenServices.setTokenStore(tokenStore());
         tokenServices.setSupportRefreshToken(true);
-        tokenServices.setAccessTokenValiditySeconds(authProperties.getAccessTokenValiditySeconds());
-        tokenServices.setRefreshTokenValiditySeconds(authProperties.getRefreshTokenValiditySeconds());
+        tokenServices.setClientDetailsService(redisClientDetailsService);
         return tokenServices;
     }
 
@@ -105,7 +111,21 @@ public class BetterAuthorizationServerConfigure extends AuthorizationServerConfi
         DefaultUserAuthenticationConverter userAuthenticationConverter = new DefaultUserAuthenticationConverter();
         userAuthenticationConverter.setUserDetailsService(userDetailService);
         defaultAccessTokenConverter.setUserTokenConverter(userAuthenticationConverter);
-        accessTokenConverter.setSigningKey("better");
+        accessTokenConverter.setSigningKey(authProperties.getJwtAccessKey());
         return accessTokenConverter;
+    }
+
+    @Bean
+    public ResourceOwnerPasswordTokenGranter resourceOwnerPasswordTokenGranter(AuthenticationManager authenticationManager, OAuth2RequestFactory oAuth2RequestFactory) {
+        DefaultTokenServices defaultTokenServices = defaultTokenServices();
+        if (authProperties.getEnableJwt()) {
+            defaultTokenServices.setTokenEnhancer(jwtAccessTokenConverter());
+        }
+        return new ResourceOwnerPasswordTokenGranter(authenticationManager, defaultTokenServices, redisClientDetailsService, oAuth2RequestFactory);
+    }
+
+    @Bean
+    public DefaultOAuth2RequestFactory oAuth2RequestFactory() {
+        return new DefaultOAuth2RequestFactory(redisClientDetailsService);
     }
 }

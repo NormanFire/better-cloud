@@ -24,4 +24,18 @@ public class BetterAuthProperties {
 
     //验证码配置类
     private BetterValidateCodeProperties code = new BetterValidateCodeProperties();
+
+    /**
+     * JWT加签密钥
+     */
+    private String jwtAccessKey;
+    /**
+     * 是否使用 JWT令牌
+     */
+    private Boolean enableJwt;
+
+    /**
+     * 社交登录所使用的 Client
+     */
+    private String socialLoginClientId;
 }

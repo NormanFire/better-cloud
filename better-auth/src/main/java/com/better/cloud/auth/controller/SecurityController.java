@@ -49,10 +49,10 @@ public class SecurityController {
     public BetterResponse signout(HttpServletRequest request) throws BetterAuthException {
         String authorization = request.getHeader("Authorization");
         String token = StringUtils.replace(authorization, "bearer ", "");
-        BetterResponse febsResponse = new BetterResponse();
+        BetterResponse betterResponse = new BetterResponse();
         if (!consumerTokenServices.revokeToken(token)) {
             throw new BetterAuthException("退出登录失败");
         }
-        return febsResponse.message("退出登录成功");
+        return betterResponse.message("退出登录成功");
     }
 }

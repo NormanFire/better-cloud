@@ -3,12 +3,16 @@ package com.better.cloud.common.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.better.cloud.common.constant.BetterConstant;
+import com.better.cloud.common.entity.BetterAuthUser;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -34,6 +38,36 @@ import java.util.zip.ZipOutputStream;
  */
 @Slf4j
 public class BetterUtil {
+
+    /**
+     * 判断是否包含中文
+     *
+     * @param value 内容
+     * @return 结果
+     */
+    public static boolean containChinese(String value) {
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(value);
+        return m.find();
+    }
+
+    private static OAuth2Authentication getOAuth2Authentication() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (OAuth2Authentication) authentication;
+    }
+
+    /**
+     * 获取当前用户名称
+     *
+     * @return String 用户名
+     */
+    public static String getCurrentUsername() {
+        Object principal = getOAuth2Authentication().getPrincipal();
+        if (principal instanceof BetterAuthUser) {
+            return ((BetterAuthUser) principal).getUsername();
+        }
+        return (String) getOAuth2Authentication().getPrincipal();
+    }
 
     private static final int BUFFER = 1024 * 8;
 
