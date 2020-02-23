@@ -1,10 +1,10 @@
-package com.better.cloud.server.upms.controller;
+package com.better.cloud.server.gen.controller;
 
 import com.better.cloud.common.annotation.ControllerEndpoint;
 import com.better.cloud.common.entity.BetterResponse;
 import com.better.cloud.common.entity.upms.GeneratorConfig;
 import com.better.cloud.common.exception.BetterException;
-import com.better.cloud.server.upms.service.IGeneratorConfigService;
+import com.better.cloud.server.gen.service.IGeneratorConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import javax.validation.Valid;
  */
 @Slf4j
 @RestController
-@RequestMapping("generatorConfig")
+@RequestMapping("genConfig")
 public class GeneratorConfigController {
 
     @Autowired
