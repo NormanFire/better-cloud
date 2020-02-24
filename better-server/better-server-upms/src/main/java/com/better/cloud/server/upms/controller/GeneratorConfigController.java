@@ -2,7 +2,7 @@ package com.better.cloud.server.upms.controller;
 
 import com.better.cloud.common.annotation.ControllerEndpoint;
 import com.better.cloud.common.entity.BetterResponse;
-import com.better.cloud.common.entity.upms.GeneratorConfig;
+import com.better.cloud.common.entity.gen.GeneratorConfig;
 import com.better.cloud.common.exception.BetterException;
 import com.better.cloud.server.upms.service.IGeneratorConfigService;
 import lombok.extern.slf4j.Slf4j;

@@ -5,7 +5,7 @@ import com.better.cloud.common.constant.GeneratorConstant;
 import com.better.cloud.common.entity.BetterResponse;
 import com.better.cloud.common.entity.QueryRequest;
 import com.better.cloud.common.entity.upms.Column;
-import com.better.cloud.common.entity.upms.GeneratorConfig;
+import com.better.cloud.common.entity.gen.GeneratorConfig;
 import com.better.cloud.common.exception.BetterException;
 import com.better.cloud.common.utils.BetterUtil;
 import com.better.cloud.server.upms.helper.GeneratorHelper;

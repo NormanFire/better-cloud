@@ -2,8 +2,8 @@ package com.better.cloud.server.gen.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.better.cloud.common.entity.upms.Column;
-import com.better.cloud.common.entity.upms.Table;
+import com.better.cloud.common.entity.gen.Column;
+import com.better.cloud.common.entity.gen.Table;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

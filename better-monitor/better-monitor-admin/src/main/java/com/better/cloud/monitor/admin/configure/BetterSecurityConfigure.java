@@ -26,14 +26,17 @@ public class BetterSecurityConfigure extends WebSecurityConfigurerAdapter {
         SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setTargetUrlParameter("redirectTo");
 
-        http.authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
                 .antMatchers(adminContextPath + "/assets/**").permitAll()
                 .antMatchers(adminContextPath + "/login").permitAll()
                 .anyRequest().authenticated()
-                .and()
+            .and()
                 .formLogin().loginPage(adminContextPath + "/login").successHandler(successHandler).and()
                 .logout().logoutUrl(adminContextPath + "/logout").and()
-                .httpBasic().and()
-                .csrf().disable();
+                .httpBasic()
+            .and()
+                .headers()
+                .frameOptions().disable();
     }
 }

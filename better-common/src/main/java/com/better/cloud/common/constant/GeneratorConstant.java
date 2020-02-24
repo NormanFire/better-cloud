@@ -14,7 +14,7 @@ public class GeneratorConstant {
     /**
      * 数据库名称
      */
-    public static final String DATABASE_NAME = "better_cloud_upms";
+    public static final String DATABASE_NAME = "better_cloud_gen";
 
     /**
      * 生成代码的临时目录

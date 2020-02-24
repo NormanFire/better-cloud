@@ -31,11 +31,14 @@ public class BetterServerUPMSResourceServerConfigure extends ResourceServerConfi
         String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(properties.getAnonUrl(), ",");
         http.csrf().disable()
                 .requestMatchers().antMatchers("/**")
-                .and()
+            .and()
                 .authorizeRequests()
                 .antMatchers(anonUrls).permitAll()
                 .antMatchers("/actuator/**").permitAll()
-                .antMatchers("/**").authenticated();
+                .antMatchers("/**").authenticated()
+            .and()
+                .headers()
+                .frameOptions().disable();
     }
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {

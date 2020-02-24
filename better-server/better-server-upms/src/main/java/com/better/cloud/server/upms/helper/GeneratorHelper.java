@@ -5,7 +5,7 @@ import com.better.cloud.common.annotation.Helper;
 import com.better.cloud.common.constant.BetterConstant;
 import com.better.cloud.common.constant.GeneratorConstant;
 import com.better.cloud.common.entity.upms.Column;
-import com.better.cloud.common.entity.upms.GeneratorConfig;
+import com.better.cloud.common.entity.gen.GeneratorConfig;
 import com.better.cloud.common.utils.BetterUtil;
 import com.better.cloud.server.upms.utils.AddressUtil;
 import com.google.common.io.Files;

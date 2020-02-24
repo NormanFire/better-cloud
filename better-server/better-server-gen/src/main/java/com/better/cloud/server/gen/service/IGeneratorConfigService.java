@@ -1,7 +1,7 @@
 package com.better.cloud.server.gen.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.better.cloud.common.entity.upms.GeneratorConfig;
+import com.better.cloud.common.entity.gen.GeneratorConfig;
 
 /**
  * @author MrBird

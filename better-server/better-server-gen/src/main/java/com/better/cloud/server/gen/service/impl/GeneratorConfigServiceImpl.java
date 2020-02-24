@@ -2,7 +2,7 @@ package com.better.cloud.server.gen.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.better.cloud.common.entity.upms.GeneratorConfig;
+import com.better.cloud.common.entity.gen.GeneratorConfig;
 import com.better.cloud.server.gen.mapper.GeneratorConfigMapper;
 import com.better.cloud.server.gen.service.IGeneratorConfigService;
 import org.springframework.stereotype.Service;

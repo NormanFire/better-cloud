@@ -126,8 +126,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SystemUser> impleme
     public void updateAvatar(String avatar) {
         SystemUser user = new SystemUser();
         user.setAvatar(avatar);
-//        String currentUsername = BetterUtil.getCurrentUsername();
-        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        String currentUsername = BetterUtil.getCurrentUsername();
         this.baseMapper.update(user, new LambdaQueryWrapper<SystemUser>().eq(SystemUser::getUsername, currentUsername));
     }
 
@@ -136,8 +135,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SystemUser> impleme
     public void updatePassword(String password) {
         SystemUser user = new SystemUser();
         user.setPassword(passwordEncoder.encode(password));
-//        String currentUsername = BetterUtil.getCurrentUsername();
-        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        String currentUsername = BetterUtil.getCurrentUsername();
         this.baseMapper.update(user, new LambdaQueryWrapper<SystemUser>().eq(SystemUser::getUsername, currentUsername));
     }
 

@@ -2,6 +2,7 @@ package com.better.cloud.server.gen.configure;
 
 import com.better.cloud.common.handler.BetterAccessDeniedHandler;
 import com.better.cloud.common.handler.BetterAuthExceptionEntryPoint;
+import com.better.cloud.server.gen.properties.BetterServerGenProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -22,20 +23,22 @@ public class BetterServerGenResourceServerConfigure extends ResourceServerConfig
     private BetterAccessDeniedHandler accessDeniedHandler;
     @Autowired
     private BetterAuthExceptionEntryPoint exceptionEntryPoint;
-//    @Autowired
-//    private BetterServerUPMSProperties properties;
+    @Autowired
+    private BetterServerGenProperties properties;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-//        String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(properties.getAnonUrl(), ",");
-        String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens("", ",");
+        String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(properties.getAnonUrl(), ",");
         http.csrf().disable()
                 .requestMatchers().antMatchers("/**")
                 .and()
                 .authorizeRequests()
                 .antMatchers(anonUrls).permitAll()
                 .antMatchers("/actuator/**").permitAll()
-                .antMatchers("/**").authenticated();
+                .antMatchers("/**").authenticated()
+                .and()
+                .headers()
+                .frameOptions().disable();;
     }
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
