@@ -2,6 +2,7 @@ package com.better.cloud.server.gen.service.impl;
 
 import com.better.cloud.common.entity.QueryRequest;
 import com.better.cloud.common.entity.gen.Datasource;
+import com.better.cloud.server.gen.datasource.DataSource;
 import com.better.cloud.server.gen.mapper.DatasourceMapper;
 import com.better.cloud.server.gen.service.IDatasourceService;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,6 +31,7 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
     @Autowired
     private DatasourceMapper datasourceMapper;
 
+    @DataSource
     @Override
     public IPage<Datasource> findDatasources(QueryRequest request, Datasource datasource) {
         LambdaQueryWrapper<Datasource> queryWrapper = new LambdaQueryWrapper<>();
@@ -37,6 +40,7 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
         return this.page(page, queryWrapper);
     }
 
+    @DataSource
     @Override
     public List<Datasource> findDatasources(Datasource datasource) {
 	    LambdaQueryWrapper<Datasource> queryWrapper = new LambdaQueryWrapper<>();
@@ -61,6 +65,13 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceMapper, Datasou
     public void deleteDatasource(Datasource datasource) {
         LambdaQueryWrapper<Datasource> wapper = new LambdaQueryWrapper<>();
 	    // TODO 设置删除条件
+
 	    this.remove(wapper);
 	}
+
+    @Override
+    @Transactional
+    public void deleteDatasources(String[] ids) {
+        removeByIds(Arrays.asList(ids));
+    }
 }

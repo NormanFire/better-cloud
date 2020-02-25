@@ -131,8 +131,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     private void setMenu(Menu menu) {
-        if (menu.getParentId() == null)
+        if (menu.getParentId() == null) {
             menu.setParentId(0L);
+        }
         if (Menu.TYPE_BUTTON.equals(menu.getType())) {
             menu.setPath(null);
             menu.setIcon(null);

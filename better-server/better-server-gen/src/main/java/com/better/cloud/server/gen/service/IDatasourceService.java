@@ -52,4 +52,9 @@ public interface IDatasourceService extends IService<Datasource> {
      * @param datasource datasource
      */
     void deleteDatasource(Datasource datasource);
+
+    /**
+     * 删除
+     */
+    void deleteDatasources(String[] ids);
 }
