@@ -53,4 +53,9 @@ public class Datasource {
     @TableField("TYPE")
     private Integer type;
 
+    /**
+     * 数据库名称
+     */
+    @TableField("SCHEMA_NAME")
+    private String schemaName;
 }

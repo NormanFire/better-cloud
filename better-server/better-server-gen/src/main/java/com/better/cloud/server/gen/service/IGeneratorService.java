@@ -14,7 +14,7 @@ public interface IGeneratorService {
 
     List<String> getDatabases(String databaseType);
 
-    IPage<Table> getTables(String tableName, QueryRequest request, String databaseType, String schemaName);
+    IPage<Table> getTables(String tableName, QueryRequest request, String databaseType,String datasourceName);
 
     List<Column> getColumns(String databaseType, String schemaName, String tableName);
 }
