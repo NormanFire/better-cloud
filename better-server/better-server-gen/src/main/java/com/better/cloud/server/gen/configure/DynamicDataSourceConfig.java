@@ -5,9 +5,8 @@ import com.better.cloud.server.gen.datasource.DynamicDataSource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -33,8 +32,8 @@ public class DynamicDataSourceConfig {
     private String url;
 
 
-    @Bean(name = "masterDataSource")
-    public DataSource masterDataSource(){
+    @Bean
+    public DataSource baseDataSource(){
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl( url );
         config.setUsername( username);
@@ -45,18 +44,15 @@ public class DynamicDataSourceConfig {
         config.addDataSourceProperty( "minIdle" , "2048" );
         config.addDataSourceProperty( "connectionTestQuery" , "2048" );
         config.addDataSourceProperty( "poolName" , "BetterHikariCP" );
-        log.info("获取配置的数据源 -> url: {}",url);
+        log.info("获取base数据源 -> url: {}",url);
         return new HikariDataSource(config);
     }
 
     @Bean
     @Primary
-    @Autowired
-    public DynamicDataSource dataSource(@Qualifier("masterDataSource") DataSource masterDataSource) {
+    public DynamicDataSource dataSource(DataSource baseDataSource) {
         Map<Object, Object> targetDataSources = new HashMap<>(5);
-        targetDataSources.put(GeneratorConstant.MASTER_DATASOURCE, masterDataSource);
-        //默认generator datasource就是 master
-        targetDataSources.put(GeneratorConstant.GEN_DATASOURCE, masterDataSource);
-        return new DynamicDataSource(masterDataSource,targetDataSources);
+        targetDataSources.put(GeneratorConstant.BASE_DATASOURCE, baseDataSource);
+        return new DynamicDataSource(baseDataSource,targetDataSources);
     }
 }

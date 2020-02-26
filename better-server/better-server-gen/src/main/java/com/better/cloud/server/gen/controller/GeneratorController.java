@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,13 +40,13 @@ public class GeneratorController {
     private IGeneratorService generatorService;
     @Autowired
     private IGeneratorConfigService generatorConfigService;
-    @Qualifier("masterDataSource")
+    @Autowired
     private GeneratorHelper generatorHelper;
 
     @GetMapping("tables")
-//    @PreAuthorize("hasAuthority('gen:generate')")
-    public BetterResponse tablesInfo(String tableName,String datasourceName, QueryRequest request) {
-        Map<String, Object> dataTable = BetterUtil.getDataTable(generatorService.getTables(tableName, request, GeneratorConstant.DATABASE_TYPE ,datasourceName));
+    @PreAuthorize("hasAuthority('gen:generate')")
+    public BetterResponse tablesInfo(String tableName, QueryRequest request) {
+        Map<String, Object> dataTable = BetterUtil.getDataTable(generatorService.getTables(tableName, request, GeneratorConstant.DATABASE_TYPE, GeneratorConstant.DATABASE_NAME));
         return new BetterResponse().data(dataTable);
     }
 

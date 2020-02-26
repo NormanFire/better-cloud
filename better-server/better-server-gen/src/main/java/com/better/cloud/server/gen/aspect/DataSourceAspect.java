@@ -3,9 +3,9 @@ package com.better.cloud.server.gen.aspect;
 import com.better.cloud.common.constant.GeneratorConstant;
 import com.better.cloud.server.gen.datasource.DataSource;
 import com.better.cloud.server.gen.datasource.DataSourceHolder;
+import com.better.cloud.server.gen.datasource.DynamicDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -37,16 +37,9 @@ public class DataSourceAspect implements Ordered {
         Method method = signature.getMethod();
 
         DataSource dataSource = method.getAnnotation(DataSource.class);
-
-        //装配generator源
-        if (StringUtils.equals(dataSource.name(),GeneratorConstant.GEN_DATASOURCE)) {
-            DataSourceHolder.setDataSource(GeneratorConstant.GEN_DATASOURCE);
-            log.info("set generator datasource -> {} " , GeneratorConstant.GEN_DATASOURCE);
-        }
-        //装配master源
-        if (StringUtils.equals(dataSource.name(),GeneratorConstant.MASTER_DATASOURCE)) {
-            DataSourceHolder.setDataSource(GeneratorConstant.MASTER_DATASOURCE);
-            log.info("set master datasource -> {} " , GeneratorConstant.MASTER_DATASOURCE);
+        if (ObjectUtils.isNotEmpty(dataSource)) {
+            DataSourceHolder.setDataSource(GeneratorConstant.BASE_DATASOURCE);
+            log.info("set datasource -> {} " , GeneratorConstant.BASE_DATASOURCE);
         }
 
         try {
