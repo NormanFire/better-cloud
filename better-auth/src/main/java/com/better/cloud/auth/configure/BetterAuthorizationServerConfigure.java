@@ -30,6 +30,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
+import java.util.UUID;
+
 /**
  * @author lius
  * @description 认证服务器认证相关配置
@@ -90,7 +92,14 @@ public class BetterAuthorizationServerConfigure extends AuthorizationServerConfi
 
     @Bean
     public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtAccessTokenConverter());
+        if (authProperties.getEnableJwt()){
+            return new JwtTokenStore(jwtAccessTokenConverter());
+        }else {
+            RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
+            // 解决每次生成的 token都一样的问题
+            redisTokenStore.setAuthenticationKeyGenerator(oAuth2Authentication -> UUID.randomUUID().toString());
+            return redisTokenStore;
+        }
     }
 
     @Primary

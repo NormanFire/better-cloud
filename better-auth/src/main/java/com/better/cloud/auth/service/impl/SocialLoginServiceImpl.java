@@ -3,7 +3,7 @@ package com.better.cloud.auth.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.better.cloud.auth.constant.ParamsConstant;
 import com.better.cloud.auth.constant.SocialConstant;
-import com.better.cloud.auth.controller.GrantTypeConstant;
+import com.better.cloud.auth.constant.GrantTypeConstant;
 import com.better.cloud.auth.entity.BindUser;
 import com.better.cloud.auth.entity.UserConnection;
 import com.better.cloud.auth.manager.UserManager;

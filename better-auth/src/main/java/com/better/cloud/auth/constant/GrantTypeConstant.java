@@ -1,4 +1,4 @@
-package com.better.cloud.auth.controller;
+package com.better.cloud.auth.constant;
 
 /**
  * 认证类型常量类
