@@ -104,8 +104,9 @@ public class BetterUtil {
      */
     public static void download(String filePath, String fileName, Boolean delete, HttpServletResponse response) throws Exception {
         File file = new File(filePath);
-        if (!file.exists())
+        if (!file.exists()) {
             throw new Exception("文件未找到");
+        }
 
         String fileType = getFileType(file);
         if (!fileTypeIsValid(fileType)) {
@@ -121,8 +122,9 @@ public class BetterUtil {
                 os.write(b, 0, length);
             }
         } finally {
-            if (delete)
+            if (delete) {
                 delete(filePath);
+            }
         }
     }
 
@@ -135,7 +137,9 @@ public class BetterUtil {
         File file = new File(filePath);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            if (files != null) Arrays.stream(files).forEach(f -> delete(f.getPath()));
+            if (files != null) {
+                Arrays.stream(files).forEach(f -> delete(f.getPath()));
+            }
         }
         file.delete();
     }
@@ -192,17 +196,20 @@ public class BetterUtil {
      * @return 结果
      */
     public static String camelToUnderscore(String value) {
-        if (StringUtils.isBlank(value))
+        if (StringUtils.isBlank(value)) {
             return value;
+        }
         String[] arr = StringUtils.splitByCharacterTypeCamelCase(value);
-        if (arr.length == 0)
+        if (arr.length == 0) {
             return value;
+        }
         StringBuilder result = new StringBuilder();
         IntStream.range(0, arr.length).forEach(i -> {
-            if (i != arr.length - 1)
+            if (i != arr.length - 1) {
                 result.append(arr[i]).append("_");
-            else
+            } else {
                 result.append(arr[i]);
+            }
         });
         return StringUtils.lowerCase(result.toString());
     }

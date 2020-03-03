@@ -17,6 +17,7 @@
         <module>better-server-upms</module>
         <module>better-server-test</module>
         <module>better-server-gen</module>
+        <module>better-server-wiki</module>
     </modules>
 
     <dependencies>

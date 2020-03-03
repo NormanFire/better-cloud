@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.better.cloud.server.wiki.mapper.DocumentMapper">
+
+    <resultMap id="document" type="com.better.cloud.common.entity.wiki.Document">
+        <id column="document_id" jdbcType="DECIMAL" property="documentId"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="space_id" jdbcType="INTEGER" property="spaceId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="path" jdbcType="CHAR" property="path"/>
+        <result column="sequence" jdbcType="INTEGER" property="sequence"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="edit_user_id" jdbcType="INTEGER" property="editUserId"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+</mapper>
