@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.util.Date;
+
 /**
  * 空间表 Entity
  *
@@ -68,12 +70,12 @@ public class Space {
      * 创建时间
      */
     @TableField("create_time")
-    private Integer createTime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
     @TableField("update_time")
-    private Integer updateTime;
+    private Date updateTime;
 
 }
