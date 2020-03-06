@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.better.cloud.server.wiki.mapper.LogDocumentMapper">
+
+    <resultMap id="logDocument" type="com.better.cloud.common.entity.wiki.LogDocument">
+        <id column="log_document_id" jdbcType="DECIMAL" property="logDocumentId"/>
+        <result column="document_id" jdbcType="DECIMAL" property="documentId"/>
+        <result column="user_id" jdbcType="DECIMAL" property="userId"/>
+        <result column="action" jdbcType="INTEGER" property="action"/>
+        <result column="comment" jdbcType="VARCHAR" property="comment"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+</mapper>

@@ -2,16 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.better.cloud.server.wiki.mapper.SpaceMapper">
 
-    <resultMap id="space" type="com.better.cloud.common.entity.wiki.Space">
-        <id column="space_id" jdbcType="DECIMAL" property="spaceId"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="description" jdbcType="VARCHAR" property="description"/>
-        <result column="tags" jdbcType="VARCHAR" property="tags"/>
-        <result column="visit_level" jdbcType="TINYINT" property="visitLevel"/>
-        <result column="is_share" jdbcType="TINYINT" property="isShare"/>
-        <result column="is_export" jdbcType="TINYINT" property="isExport"/>
-        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-    </resultMap>
 </mapper>

@@ -36,13 +36,13 @@ public class SpaceController {
     private ISpaceService spaceService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('space:list')")
+//    @PreAuthorize("hasAuthority('space:list')")
     public BetterResponse getAllSpaces(Space space) {
         return new BetterResponse().data(spaceService.findSpaces(space));
     }
 
     @GetMapping("list")
-    @PreAuthorize("hasAuthority('space:list')")
+//    @PreAuthorize("hasAuthority('space:list')")
     public BetterResponse spaceList(QueryRequest request, Space space) {
         Map<String, Object> dataTable = getDataTable(this.spaceService.findSpaces(request, space));
         return new BetterResponse().data(dataTable);
@@ -50,7 +50,7 @@ public class SpaceController {
 
 
     @PostMapping
-    @PreAuthorize("hasAuthority('space:add')")
+//    @PreAuthorize("hasAuthority('space:add')")
     public void addSpace(@Valid Space space) throws BetterException {
         try {
             this.spaceService.createSpace(space);
@@ -62,7 +62,7 @@ public class SpaceController {
     }
 
     @DeleteMapping
-    @PreAuthorize("hasAuthority('space:delete')")
+//    @PreAuthorize("hasAuthority('space:delete')")
     public void deleteSpace(Space space) throws BetterException {
         try {
             this.spaceService.deleteSpace(space);
@@ -74,7 +74,7 @@ public class SpaceController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('space:update')")
+//    @PreAuthorize("hasAuthority('space:update')")
     public void updateSpace(Space space) throws BetterException {
         try {
             this.spaceService.updateSpace(space);
