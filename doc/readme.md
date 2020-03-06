@@ -121,11 +121,22 @@ https://gitee.com/treeshade/better-upms-web.git
 
 在`better-server`模块下新建资源服务器
 
-## 前端启动
-
+## 前端
+### 前端框架
+- Vue
+- element-ui
+### 启动命令
 ```
 npm install
 
 npm run dev
+```
+### 开发启动条件
+- 安装python(且需要在环境变量配置，在安装失败的情况下---本来会自己安装的)
+- 安装sass(npm install node-sass),如果失败设置镜像为淘宝链接
+```npm config set registry https://registry.npm.taobao.org```
+### 注意
+```js
+如果安装失败，可能是使用的代理忘记开启（比如我自己）
 ```
 
