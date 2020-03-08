@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 import static com.better.cloud.common.utils.BetterUtil.getDataTable;
@@ -32,20 +34,30 @@ public class DocumentController {
     private IDocumentService documentService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('document:list')")
+//    @PreAuthorize("hasAuthority('document:list')")
     public BetterResponse getAllDocuments(Document document) {
         return new BetterResponse().data(documentService.findDocuments(document));
     }
 
+    @GetMapping("/space/{spaceId}")
+    public BetterResponse getDocumentsBySpaceId(@NotNull(message = "{required}") @PathVariable(name = "spaceId") Integer spaceId){
+        return  new BetterResponse().data(documentService.getDocumentsBySpaceId(spaceId));
+    }
+
+    @GetMapping("/breadcrumb/{path}")
+    public BetterResponse getBreadcrumbByPath(@NotBlank(message = "{required}") @PathVariable(name = "path") String path){
+        return new BetterResponse().data(documentService.getBreadcrumbByPath(path));
+    }
+
     @GetMapping("list")
-    @PreAuthorize("hasAuthority('document:list')")
+//    @PreAuthorize("hasAuthority('document:list')")
     public BetterResponse documentList(QueryRequest request, Document document) {
         Map<String, Object> dataTable = getDataTable(this.documentService.findDocuments(request, document));
         return new BetterResponse().data(dataTable);
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('document:add')")
+//    @PreAuthorize("hasAuthority('document:add')")
     public void addDocument(@Valid Document document) throws BetterException {
         try {
             this.documentService.createDocument(document);
@@ -57,7 +69,7 @@ public class DocumentController {
     }
 
     @DeleteMapping
-    @PreAuthorize("hasAuthority('document:delete')")
+//    @PreAuthorize("hasAuthority('document:delete')")
     public void deleteDocument(Document document) throws BetterException {
         try {
             this.documentService.deleteDocument(document);
@@ -69,7 +81,7 @@ public class DocumentController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('document:update')")
+//    @PreAuthorize("hasAuthority('document:update')")
     public void updateDocument(Document document) throws BetterException {
         try {
             this.documentService.updateDocument(document);
