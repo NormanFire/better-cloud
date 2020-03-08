@@ -14,7 +14,7 @@ public class GeneratorConstant {
     /**
      * 数据库名称
      */
-    public static final String DATABASE_NAME = "better_cloud_wiki";
+    public static final String DATABASE_NAME = "better_cloud_bill";
     public static final String BASE_DATASOURCE = "baseDataSource";
 
     /**

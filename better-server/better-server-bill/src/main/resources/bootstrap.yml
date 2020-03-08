@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: Better-Server-Bill
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${nacos.url}:8001
+      config:
+        server-addr: ${nacos.url}:8001
+        group: DEFAULT_GROUP
+        prefix: better-server-bill
+        file-extension: yaml

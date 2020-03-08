@@ -2,6 +2,8 @@ package com.better.cloud.common.utils;
 
 import com.better.cloud.common.entity.Tree;
 import com.better.cloud.common.entity.router.VueRouter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 /**
  * @author MrBird
  */
+@Slf4j
 public class TreeUtil {
 
     private final static String TOP_NODE_ID = "0";
@@ -33,8 +36,9 @@ public class TreeUtil {
             for (Tree<T> n : nodes) {
                 String id = n.getId();
                 if (id != null && id.equals(pid)) {
-                    if (n.getChildren() == null)
+                    if (n.getChildren() == null) {
                         n.initChildren();
+                    }
                     n.getChildren().add(node);
                     node.setHasParent(true);
                     n.setHasChildren(true);
@@ -42,8 +46,35 @@ public class TreeUtil {
                     return;
                 }
             }
-            if (topNodes.isEmpty())
+            if (topNodes.isEmpty()) {
                 topNodes.add(node);
+            }
+        });
+        return topNodes;
+    }
+
+    public static <T> List<? extends Tree<?>> recursionBuild(List<? extends Tree<T>> nodes){
+
+        if (nodes == null){
+            return null;
+        }
+        List<Tree<T>> trees = recursionBuild(TOP_NODE_ID, nodes);
+        nodes.forEach((node)->{
+            if (StringUtils.isEmpty(node.getId())){
+                trees.add(node);
+            }
+        });
+        return trees;
+    }
+
+    private static <T> List<Tree<T>> recursionBuild(String root,List<? extends Tree<T>> nodes){
+        List<Tree<T>> topNodes = new ArrayList<>();
+        nodes.forEach((node)->{
+            if (StringUtils.equals(node.getParentId(),root)){
+                List< Tree<T>> trees = recursionBuild(node.getId(), nodes);
+                node.setChildren(trees);
+                topNodes.add(node);
+            }
         });
         return topNodes;
     }
@@ -71,8 +102,9 @@ public class TreeUtil {
             for (VueRouter<T> parent : routes) {
                 String id = parent.getId();
                 if (id != null && id.equals(parentId)) {
-                    if (parent.getChildren() == null)
+                    if (parent.getChildren() == null) {
                         parent.initChildren();
+                    }
                     parent.getChildren().add(route);
                     parent.setAlwaysShow(true);
                     parent.setHasChildren(true);

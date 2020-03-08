@@ -1,6 +1,7 @@
 package com.better.cloud.server.wiki.service;
 
 import com.better.cloud.common.entity.QueryRequest;
+import com.better.cloud.common.entity.Tree;
 import com.better.cloud.common.entity.wiki.Document;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -52,4 +53,13 @@ public interface IDocumentService extends IService<Document> {
      * @param document document
      */
     void deleteDocument(Document document);
+
+    /**
+     * 通过spaceid获取文档树
+     * @param spaceId spaceId
+     * @return document list
+     */
+    List<? extends Tree<?>> getDocumentsBySpaceId(Integer spaceId);
+
+    String getBreadcrumbByPath(String path);
 }
