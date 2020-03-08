@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("/rabbit")
-public class TestRabbitController extends TestController{
+public class TestRabbitController{
 
     @Autowired
     RabbitMQProducer producer;
