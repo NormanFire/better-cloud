@@ -18,6 +18,7 @@
         <module>better-server-test</module>
         <module>better-server-gen</module>
         <module>better-server-wiki</module>
+        <module>better-server-bill</module>
     </modules>
 
     <dependencies>

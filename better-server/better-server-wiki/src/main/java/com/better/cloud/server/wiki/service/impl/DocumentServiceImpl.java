@@ -101,13 +101,14 @@ public class DocumentServiceImpl extends ServiceImpl<DocumentMapper, Document> i
     @Override
     public String getBreadcrumbByPath(String path) {
         String[] ids = StringUtils.splitByWholeSeparatorPreserveAllTokens(path, ",");
+        StringBuilder breadcrumb = new StringBuilder();
         for (String id : ids) {
             int intId = Integer.parseInt(id);
             if (intId != 0){
                 Document document = documentMapper.selectById(intId);
-
+                breadcrumb.append(document.getName()).append(",");
             }
         }
-        return null;
+        return breadcrumb.toString();
     }
 }
