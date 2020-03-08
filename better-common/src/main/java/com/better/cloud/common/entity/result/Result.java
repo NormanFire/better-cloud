@@ -1,12 +1,14 @@
 package com.better.cloud.common.entity.result;
 
+import java.io.Serializable;
+
 /**
  * @Author Yiquan Mou
  * @create: 2020/3/8 11:11
  * @Description //TODO
 **/
-public class Result<T> {
-	
+public class Result<T> implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int code;
 	private String msg;
 	private T data;
