@@ -4,6 +4,7 @@ import com.better.cloud.common.entity.result.Result;
 import com.better.cloud.server.mq.producer.rabbit.RabbitMQProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -24,5 +25,10 @@ public class TestRabbitController{
         return Result.success("1");
     }
 
+    @RequestMapping(value = "/topic", method = RequestMethod.POST)
+    public Result<String> topicSend(String msg){
+        producer.sendTopic(msg);
+        return Result.success("1");
+    }
 
 }

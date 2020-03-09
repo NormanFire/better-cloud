@@ -20,5 +20,12 @@ public class RabbitMQConsumer {
     public void receive(String message){
         log.info("receive message:"+message);
     }
-
+    @RabbitListener(queues = RabbitMQConfig.TOPIC_COMMON_QUEUE1)
+    public void receiveTopicQueue1(String message){
+        log.info(RabbitMQConfig.TOPIC_COMMON_QUEUE1 +" receive message:"+message);
+    }
+    @RabbitListener(queues = RabbitMQConfig.TOPIC_COMMON_QUEUE2)
+    public void receiveTopicQueue2(String message){
+        log.info(RabbitMQConfig.TOPIC_COMMON_QUEUE2+" receive message:"+message);
+    }
 }
