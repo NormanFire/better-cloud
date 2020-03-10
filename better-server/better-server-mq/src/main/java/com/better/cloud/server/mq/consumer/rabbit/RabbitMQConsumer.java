@@ -28,4 +28,12 @@ public class RabbitMQConsumer {
     public void receiveTopicQueue2(String message){
         log.info(RabbitMQConfig.TOPIC_COMMON_QUEUE2+" receive message:"+message);
     }
+    @RabbitListener(queues = RabbitMQConfig.FANOUT_COMMON_QUEUE1)
+    public void receiveFanoutQueue1(String message){
+        log.info(RabbitMQConfig.FANOUT_COMMON_QUEUE1+" receive message:"+message);
+    }
+    @RabbitListener(queues = RabbitMQConfig.FANOUT_COMMON_QUEUE2)
+    public void receiveFanoutQueue2(String message){
+        log.info(RabbitMQConfig.FANOUT_COMMON_QUEUE2+" receive message:"+message);
+    }
 }

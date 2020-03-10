@@ -33,4 +33,10 @@ public class RabbitMQProducer {
         amqpTemplate.convertAndSend(RabbitMQConfig.TOPIC_COMMON_EXCHANGE,"topic.1",msg);
         amqpTemplate.convertAndSend(RabbitMQConfig.TOPIC_COMMON_EXCHANGE,"topic.2",msg);
     }
+
+    public void sendFanout(Object message){
+        String msg = StringBeanUtil.beanToString(message);
+        log.info("rabbitmq fanout exchange send message:"+msg);
+        amqpTemplate.convertAndSend(RabbitMQConfig.FANOUT_COMMON_EXCHANGE,"",msg);
+    }
 }

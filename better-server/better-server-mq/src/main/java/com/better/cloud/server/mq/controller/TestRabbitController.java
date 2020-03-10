@@ -31,4 +31,9 @@ public class TestRabbitController{
         return Result.success("1");
     }
 
+    @RequestMapping(value = "/fanout", method = RequestMethod.POST)
+    public Result<String> fanoutSend(String msg){
+        producer.sendFanout(msg);
+        return Result.success("1");
+    }
 }

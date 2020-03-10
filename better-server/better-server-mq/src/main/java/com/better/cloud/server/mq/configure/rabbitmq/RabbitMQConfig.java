@@ -1,10 +1,7 @@
 package com.better.cloud.server.mq.configure.rabbitmq;
 
 import com.sun.org.apache.regexp.internal.RE;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,6 +23,10 @@ public class RabbitMQConfig {
     //#代表0~n  *:一个
     public static final String TOPIC_COMMON_ROUTE_KEY1 = "topic.1";
     public static final String TOPIC_COMMON_ROUTE_KEY2 = "topic.#";
+    //fanout广播模式
+    public static final String FANOUT_COMMON_QUEUE1 = "fanout.common.queue1";
+    public static final String FANOUT_COMMON_QUEUE2 = "fanout.common.queue1";
+    public static final String FANOUT_COMMON_EXCHANGE = "fanoutCommonChange";
     /**
      * Direct模式（直连模式） 交换机Exchange 四种
      * @return
@@ -43,6 +44,14 @@ public class RabbitMQConfig {
         return new Queue(TOPIC_COMMON_QUEUE2,true);
     }
     @Bean
+    public Queue fanoutQueue1(){
+        return new Queue(FANOUT_COMMON_QUEUE1,true);
+    }
+    @Bean
+    public Queue fanoutQueue2(){
+        return new Queue(FANOUT_COMMON_QUEUE2,true);
+    }
+    @Bean
     public TopicExchange topicCommonExchange(){
         return new TopicExchange(TOPIC_COMMON_EXCHANGE);
     }
@@ -53,6 +62,18 @@ public class RabbitMQConfig {
     @Bean
     public Binding topicBinding2(){
         return BindingBuilder.bind(topicQueue2()).to(topicCommonExchange()).with(TOPIC_COMMON_ROUTE_KEY2);
+    }
+    @Bean
+    public FanoutExchange fanoutExchange(){
+        return new FanoutExchange(FANOUT_COMMON_EXCHANGE);
+    }
+    @Bean
+    public Binding fanoutBinding1(){
+        return BindingBuilder.bind(fanoutQueue1()).to(fanoutExchange());
+    }
+    @Bean
+    public Binding fanoutBinding2(){
+        return BindingBuilder.bind(fanoutQueue2()).to(fanoutExchange());
     }
 
 }
