@@ -36,4 +36,9 @@ public class TestRabbitController{
         producer.sendFanout(msg);
         return Result.success("1");
     }
+    @RequestMapping(value = "/headers", method = RequestMethod.POST)
+    public Result<String> headersSend(String msg){
+        producer.sendHeaders(msg);
+        return Result.success("1");
+    }
 }

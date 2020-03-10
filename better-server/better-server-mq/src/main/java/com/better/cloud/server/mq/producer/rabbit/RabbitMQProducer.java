@@ -5,6 +5,8 @@ import com.better.cloud.server.mq.configure.rabbitmq.RabbitMQConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +40,15 @@ public class RabbitMQProducer {
         String msg = StringBeanUtil.beanToString(message);
         log.info("rabbitmq fanout exchange send message:"+msg);
         amqpTemplate.convertAndSend(RabbitMQConfig.FANOUT_COMMON_EXCHANGE,"",msg);
+    }
+
+    public void sendHeaders(Object message){
+        String msg = StringBeanUtil.beanToString(message);
+        log.info("rabbitmq headers exchange send message:"+msg);
+        MessageProperties properties = new MessageProperties();
+        properties.setHeader("header1","value1");
+        properties.setHeader("header2","value2");
+        Message obj = new Message(msg.getBytes(),properties);
+        amqpTemplate.convertAndSend(RabbitMQConfig.HEADERS_EXCHANGE,"",obj);
     }
 }

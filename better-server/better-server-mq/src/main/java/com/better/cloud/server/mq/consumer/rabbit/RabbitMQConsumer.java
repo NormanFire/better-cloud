@@ -36,4 +36,8 @@ public class RabbitMQConsumer {
     public void receiveFanoutQueue2(String message){
         log.info(RabbitMQConfig.FANOUT_COMMON_QUEUE2+" receive message:"+message);
     }
+    @RabbitListener(queues = RabbitMQConfig.HEADERS_COMMON_QUEUE)
+    public void receiveHeadersQueue(String message){
+        log.info(RabbitMQConfig.HEADERS_COMMON_QUEUE+" receive message:"+message);
+    }
 }
