@@ -23,6 +23,7 @@ https://gitee.com/treeshade/better-upms-web.git
 | `nacos` | 1.1.4    |
 | `redis` | 3.2+     |
 | `IDEA`  | 2019.3.1 |
+| `rabbitmq`  | 3.7.2 |
 
 ```
 可以使用提供的nacos
