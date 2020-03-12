@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.better.cloud.common.constant.BetterConstant;
 import com.better.cloud.common.entity.BetterAuthUser;
+import com.better.cloud.common.entity.upms.SystemUser;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
@@ -318,5 +319,10 @@ public class BetterUtil {
         }
     }
 
+    public static SystemUser getCurrentUser(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //对象属性拷贝
+        return new SystemUser();
+    }
 
 }
