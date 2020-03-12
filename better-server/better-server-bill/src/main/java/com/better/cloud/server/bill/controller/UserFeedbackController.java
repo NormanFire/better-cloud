@@ -3,10 +3,12 @@ package com.better.cloud.server.bill.controller;
 import com.better.cloud.common.entity.BetterResponse;
 import com.better.cloud.common.entity.QueryRequest;
 import com.better.cloud.common.exception.BetterException;
+import com.better.cloud.common.utils.BetterUtil;
 import com.better.cloud.server.bill.entity.UserFeedback;
 import com.better.cloud.server.bill.service.IUserFeedbackService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +31,7 @@ import static com.better.cloud.common.utils.BetterUtil.getDataTable;
 @Validated
 @RestController
 @RequestMapping("userFeedback")
-public class UserFeedbackController  {
+public class UserFeedbackController{
 
     @Autowired
     private IUserFeedbackService userFeedbackService;
@@ -48,9 +50,10 @@ public class UserFeedbackController  {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('userFeedback:add')")
+//    @PreAuthorize("hasAuthority('userFeedback:add')")
     public void addUserFeedback(@Valid UserFeedback userFeedback) throws BetterException {
         try {
+            userFeedback.setUserId(BetterUtil.getCurrentUser().getUserId().intValue());
             this.userFeedbackService.createUserFeedback(userFeedback);
         } catch (Exception e) {
             String message = "新增UserFeedback失败";

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *  Entity
@@ -40,6 +41,7 @@ public class UserFeedback {
      * 内容
      */
     @TableField("content")
+    @Length(max = 500)
     private String content;
 
     /**
