@@ -20,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -320,9 +321,19 @@ public class BetterUtil {
     }
 
     public static SystemUser getCurrentUser(){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        OAuth2Authentication authentication = (OAuth2Authentication)SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String,Object> details = (HashMap<String,Object>)authentication.getUserAuthentication().getDetails();
+        HashMap<String,Object> principal = (HashMap<String,Object>)details.get("principal");
+        SystemUser systemUser = new SystemUser();
+        try {
+            org.apache.commons.beanutils.BeanUtils.copyProperties(systemUser,principal);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
         //对象属性拷贝
-        return new SystemUser();
+        return systemUser;
     }
 
 }
