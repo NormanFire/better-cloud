@@ -3,6 +3,7 @@ package com.better.cloud.server.bill.controller;
 import com.better.cloud.common.entity.BetterResponse;
 import com.better.cloud.common.entity.QueryRequest;
 import com.better.cloud.common.exception.BetterException;
+import com.better.cloud.common.utils.BetterUtil;
 import com.better.cloud.server.bill.entity.UserBudget;
 import com.better.cloud.server.bill.service.IUserBudgetService;
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +52,7 @@ public class UserBudgetController {
     @PreAuthorize("hasAuthority('userBudget:add')")
     public void addUserBudget(@Valid UserBudget userBudget) throws BetterException {
         try {
+            userBudget.setUserId(BetterUtil.getCurrentUser().getUserId().intValue());
             this.userBudgetService.createUserBudget(userBudget);
         } catch (Exception e) {
             String message = "新增UserBudget失败";

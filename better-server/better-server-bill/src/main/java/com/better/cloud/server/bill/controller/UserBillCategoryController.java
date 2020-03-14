@@ -3,6 +3,7 @@ package com.better.cloud.server.bill.controller;
 import com.better.cloud.common.entity.BetterResponse;
 import com.better.cloud.common.entity.QueryRequest;
 import com.better.cloud.common.exception.BetterException;
+import com.better.cloud.common.utils.BetterUtil;
 import com.better.cloud.server.bill.entity.UserBillCategory;
 import com.better.cloud.server.bill.service.IUserBillCategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +52,7 @@ public class UserBillCategoryController {
     @PreAuthorize("hasAuthority('userBillCategory:add')")
     public void addUserBillCategory(@Valid UserBillCategory userBillCategory) throws BetterException {
         try {
+            userBillCategory.setUserId(BetterUtil.getCurrentUser().getUserId().intValue());
             this.userBillCategoryService.createUserBillCategory(userBillCategory);
         } catch (Exception e) {
             String message = "新增UserBillCategory失败";
