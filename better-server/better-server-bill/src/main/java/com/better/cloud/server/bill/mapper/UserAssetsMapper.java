@@ -3,6 +3,8 @@ package com.better.cloud.server.bill.mapper;
 import com.better.cloud.server.bill.entity.UserAssets;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  *  Mapper
  *
@@ -11,4 +13,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UserAssetsMapper extends BaseMapper<UserAssets> {
 
+    List<UserAssets> selectListByUserId(Integer userId);
 }

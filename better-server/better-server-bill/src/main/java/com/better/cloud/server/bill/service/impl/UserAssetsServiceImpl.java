@@ -2,6 +2,8 @@ package com.better.cloud.server.bill.service.impl;
 
 import com.better.cloud.common.entity.QueryRequest;
 import com.better.cloud.server.bill.entity.UserAssets;
+import com.better.cloud.server.bill.entity.UserAssetsStatisticsBO;
+import com.better.cloud.server.bill.enums.AssetsTypeEnum;
 import com.better.cloud.server.bill.mapper.UserAssetsMapper;
 import com.better.cloud.server.bill.service.IUserAssetsService;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,24 @@ public class UserAssetsServiceImpl extends ServiceImpl<UserAssetsMapper, UserAss
 	    LambdaQueryWrapper<UserAssets> queryWrapper = new LambdaQueryWrapper<>();
 		// TODO 设置查询条件
 		return this.baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public UserAssetsStatisticsBO findUserAssetsStatisticsByUserId(Integer userId) {
+        UserAssetsStatisticsBO userAssetsStatisticsBO = new UserAssetsStatisticsBO();
+        List<UserAssets> userAssetsList = userAssetsMapper.selectListByUserId(userId);
+        if (userAssetsList != null){
+            userAssetsList.forEach(userAssets -> {
+                if (userAssets.getType() == AssetsTypeEnum.POSITIVE_ACCOUNT.getTypeCode()){
+                    userAssetsStatisticsBO.addPositiveAssets(userAssets.getAmount());
+                }else {
+                    userAssetsStatisticsBO.addNegativeqAssets(userAssets.getAmount());
+                }
+            });
+            userAssetsStatisticsBO.setUserAssetsList(userAssetsList);
+            userAssetsStatisticsBO.calculateTotalAssets();
+        }
+        return userAssetsStatisticsBO;
     }
 
     @Override

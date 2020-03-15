@@ -5,8 +5,10 @@ import com.better.cloud.server.bill.entity.UserAssets;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.better.cloud.server.bill.entity.UserAssetsStatisticsBO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *  Service接口
@@ -31,6 +33,13 @@ public interface IUserAssetsService extends IService<UserAssets> {
      * @return List<UserAssets>
      */
     List<UserAssets> findUserAssetss(UserAssets userAssets);
+
+    /**
+     * 根据用户id查询用户资产统计详情
+     * @return Map<String,Object>
+     */
+    UserAssetsStatisticsBO findUserAssetsStatisticsByUserId(Integer userId);
+
 
     /**
      * 新增

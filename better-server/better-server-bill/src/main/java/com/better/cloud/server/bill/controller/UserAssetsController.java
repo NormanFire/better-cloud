@@ -2,19 +2,18 @@ package com.better.cloud.server.bill.controller;
 
 import com.better.cloud.common.entity.BetterResponse;
 import com.better.cloud.common.entity.QueryRequest;
+import com.better.cloud.common.entity.result.Result;
 import com.better.cloud.common.exception.BetterException;
 import com.better.cloud.common.utils.BetterUtil;
 import com.better.cloud.server.bill.entity.UserAssets;
+import com.better.cloud.server.bill.entity.UserAssetsStatisticsBO;
 import com.better.cloud.server.bill.service.IUserAssetsService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -84,5 +83,11 @@ public class UserAssetsController {
             log.error(message, e);
             throw new BetterException(message);
         }
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('wxApp:userAssets:list')")
+    public Result<UserAssetsStatisticsBO> getAllUserAssetss() {
+        return Result.success(userAssetsService.findUserAssetsStatisticsByUserId(BetterUtil.getCurrentUser().getUserId().intValue()));
     }
 }
