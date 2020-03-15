@@ -85,6 +85,12 @@ public class UserAssetsController {
         }
     }
 
+    @GetMapping("/{assetsId}/details")
+    @PreAuthorize("hasAuthority('wxApp:userAssets:list')")
+    public Result<UserAssets> getAllUserAssetss(@PathVariable("assetsId") String assetsId) {
+        return Result.success(userAssetsService.findUserAssetsDetailsById(assetsId,BetterUtil.getCurrentUser().getUserId().intValue()));
+    }
+
     @GetMapping
     @PreAuthorize("hasAuthority('wxApp:userAssets:list')")
     public Result<UserAssetsStatisticsBO> getAllUserAssetss() {

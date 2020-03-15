@@ -61,4 +61,12 @@ public interface IUserAssetsService extends IService<UserAssets> {
      * @param userAssets userAssets
      */
     void deleteUserAssets(UserAssets userAssets);
+
+    /**
+     * 根据id查询账单详情
+     * @param assetsId
+     * @param userId
+     * @return UserAssets
+     */
+    UserAssets findUserAssetsDetailsById(String assetsId, int userId);
 }

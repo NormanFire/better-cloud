@@ -83,4 +83,13 @@ public class UserAssetsServiceImpl extends ServiceImpl<UserAssetsMapper, UserAss
 	    // TODO 设置删除条件
 	    this.remove(wapper);
 	}
+
+    @Override
+    public UserAssets findUserAssetsDetailsById(String assetsId, int userId) {
+        UserAssets userAssets = baseMapper.selectById(assetsId);
+        if (userAssets!=null && userAssets.getUserId().equals(userId)){
+            return userAssets;
+        }
+        return null;
+    }
 }
