@@ -87,13 +87,13 @@ public class UserAssetsController {
 
     @GetMapping("/{assetsId}/details")
     @PreAuthorize("hasAuthority('wxApp:userAssets:list')")
-    public Result<UserAssets> getAllUserAssetss(@PathVariable("assetsId") String assetsId) {
+    public Result<UserAssets> getUserAssetsById(@PathVariable("assetsId") String assetsId) {
         return Result.success(userAssetsService.findUserAssetsDetailsById(assetsId,BetterUtil.getCurrentUser().getUserId().intValue()));
     }
 
-    @GetMapping
+    @GetMapping("/statistics")
     @PreAuthorize("hasAuthority('wxApp:userAssets:list')")
-    public Result<UserAssetsStatisticsBO> getAllUserAssetss() {
+    public Result<UserAssetsStatisticsBO> getAllUserAssetssByUserId() {
         return Result.success(userAssetsService.findUserAssetsStatisticsByUserId(BetterUtil.getCurrentUser().getUserId().intValue()));
     }
 }
