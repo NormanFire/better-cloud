@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
+import static com.better.cloud.common.utils.BetterUtil.getCurrentUser;
 import static com.better.cloud.common.utils.BetterUtil.getDataTable;
 
 /**
@@ -84,4 +85,33 @@ public class UserBillCategoryController {
             throw new BetterException(message);
         }
     }
+
+    @PostMapping
+    @PreAuthorize("hasAuthority('wxAPP:userBillCategory:update')")
+    public void updateUserBillCategoryByWxApp(UserBillCategory userBillCategory) throws BetterException {
+        try {
+            if (getCurrentUser().getUserId().equals(userBillCategory.getUserId())){
+                this.userBillCategoryService.updateUserBillCategory(userBillCategory);
+            }
+        } catch (Exception e) {
+            String message = "修改UserBillCategory失败";
+            log.error(message, e);
+            throw new BetterException(message);
+        }
+    }
+
+    @DeleteMapping
+    @PreAuthorize("hasAuthority('wxAPP:userBillCategory:delete')")
+    public void deleteUserBillCategoryByWxApp(UserBillCategory userBillCategory) throws BetterException {
+        try {
+            if (getCurrentUser().getUserId().equals(userBillCategory.getUserId())){
+                this.userBillCategoryService.deleteUserBillCategory(userBillCategory);
+            }
+        } catch (Exception e) {
+            String message = "删除UserBillCategory失败";
+            log.error(message, e);
+            throw new BetterException(message);
+        }
+    }
+
 }
