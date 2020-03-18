@@ -86,11 +86,15 @@ public class UserBillCategoryController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/wxAPP")
     @PreAuthorize("hasAuthority('wxAPP:userBillCategory:update')")
     public void updateUserBillCategoryByWxApp(UserBillCategory userBillCategory) throws BetterException {
         try {
+            //需要增加userBillCategory验证逻辑
             if (getCurrentUser().getUserId().equals(userBillCategory.getUserId())){
+                if (userBillCategory.getId() == null){
+                    this.userBillCategoryService.createUserBillCategory(userBillCategory);
+                }
                 this.userBillCategoryService.updateUserBillCategory(userBillCategory);
             }
         } catch (Exception e) {
@@ -100,7 +104,7 @@ public class UserBillCategoryController {
         }
     }
 
-    @DeleteMapping
+    @DeleteMapping("/wxAPP")
     @PreAuthorize("hasAuthority('wxAPP:userBillCategory:delete')")
     public void deleteUserBillCategoryByWxApp(UserBillCategory userBillCategory) throws BetterException {
         try {
